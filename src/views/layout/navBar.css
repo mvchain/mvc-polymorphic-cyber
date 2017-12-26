@@ -1,0 +1,72 @@
+.nav-container .nav-container-top {
+  height: 30px;
+  background: #333;
+  margin: 0 auto;
+  color: #c2c2c2;
+  font-size: 13.3px;
+  line-height: 30px;
+}
+.nav-container .nav-container-top .main-size {
+  background: #333;
+  height: 30px;
+}
+.nav-container .nav-container-top ul {
+  float: right;
+}
+.nav-container .nav-container-top ul li {
+  display: inline-block;
+  padding: 0 15px;
+}
+.nav-container .nav-container-top ul li span {
+  cursor: pointer;
+}
+.nav-container .nav-container-top ul li:after {
+  display: inline-block;
+  content: " ";
+  width: 1px;
+  height: 15px;
+  position: relative;
+  left: 20px;
+  top: 3px;
+  background: #c2c2c2;
+}
+.nav-container .nav-container-top ul li:last-child:after {
+  width: 0;
+}
+.nav-container .nav-container-bottom {
+  height: 50px;
+  margin: 0 auto;
+  line-height: 50px;
+}
+.nav-container .nav-container-bottom .nav-container-link {
+  color: #323232;
+  cursor: pointer;
+  font-weight: 900;
+  font-size: 16px;
+  margin-right: 100px;
+}
+.nav-container .nav-container-bottom .navActive {
+  color: #1971d5;
+}
+.nav-container .nav-container-bottom .nav-container-link-1 {
+  padding: 5px 10px;
+  background: #1971d5;
+  margin-right: 110px;
+  color: #fff;
+  position: relative;
+}
+.nav-container .nav-container-bottom .nav-container-link-1:after {
+  content: '';
+  border: 7px solid transparent;
+  border-top-color: #1971d5;
+  position: absolute;
+  bottom: -13px;
+  left: 20px;
+}
+.nav-container .nav-container-bottom .router-link-active {
+  color: #1971d5;
+}
+.main-size {
+  width: 1200px;
+  margin: 0 auto;
+}
