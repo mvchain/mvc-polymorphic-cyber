@@ -116,7 +116,6 @@
       getTransferInfo() {
         let that = this;
         window.web3.eth.getTransaction('0x2021785f9f4b13e242a9afe2258af913bba69a6b577868538ea3f9ded89bbbeb', (res, rej) => {
-          console.log(rej);
           if (typeof rej === 'object') {
             rej.gas = window.web3.fromWei(rej.gas);
             rej.gasPrice = window.web3.fromWei(Number(rej.gasPrice));
