@@ -43,7 +43,7 @@ export default {
 </script>
 <style scoped>
 input {
-  width: 400px;
+  width: 300px;
   margin: 5px auto;
 }
 </style>
