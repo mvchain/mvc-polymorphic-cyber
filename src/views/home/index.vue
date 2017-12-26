@@ -56,10 +56,10 @@
       return {
         balance: '',
         balanceCoin: '0.00',
-        transferCount: '0',
+        transferCount: 0.001,
         orderHash: '',
-        transferFrom: '0xad837b3c9c34295e797d94fb421c4b9280fc6d1f',
-        transferTo: '0x20771815237d62ba03737123c96f90678c3ade46',
+        transferFrom: '451ee9cbdcfa80c24a51701b82717e7e62e4914d',
+        transferTo: '',
         tableData: {}
       };
     },
@@ -87,7 +87,6 @@
           this.$message.error('转账数量不能为0或负数');
           return;
         }
-
         this.$prompt('请转账秘钥', '提示', {
           confirmButtonText: '确定',
           inputType: 'password',
@@ -99,7 +98,7 @@
               let tx = {
                 from: that.transferFrom,
                 to: that.transferTo,
-                value: window.web3.toWei(Number(that.transferCount), 'ether')
+                value: window.web3.toWei(0.001, 'ether')
               };
               window.web3.personal.sendTransaction(tx, value, (res, err) => {
                 if (err) {
