@@ -2,9 +2,9 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <ul>
-      <li><a href="./balance" target="_blank">1.Check Blance</a></li>
-      <li><a href="./transfer" target="_blank">2.Transfer Ether</a></li>
-      <li><a href="./transfer" target="_blank">3.Transfer Substitute</a></li>
+      <li><router-link to="/balance" target="_self">1.Check Blance</router-link></li>
+      <li><router-link to="/transfer-ether" target="_self">2.Transfer Ether</router-link></li>
+      <li><router-link to="/transfer-substitute" target="_self">3.Transfer Substitute</router-link></li>
     </ul>
   </div>
 </template>
