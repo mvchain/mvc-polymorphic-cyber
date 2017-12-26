@@ -1,0 +1,6 @@
+.login-con {
+  display: flex;
+  height: 509px;
+  background: url("../../assets/img/Big-background.png");
+  background-size: 100% 100%;
+}

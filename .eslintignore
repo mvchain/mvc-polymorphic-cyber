@@ -1,5 +1,4 @@
-/build/
-/config/
-/dist/
-/*.js
-/test/unit/coverage/
+build/*.js
+config/*.js
+src/utils/artisan-browser.js
+src/utils/request.js

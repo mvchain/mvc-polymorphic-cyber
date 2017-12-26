@@ -1,0 +1,178 @@
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.artisan-title {
+  font-size: 16px;
+  color: #323232;
+}
+.pubBack {
+  background: #fff;
+}
+.app-main {
+  background: #f2f5f9;
+}
+.missionTypeAction {
+  background: #eaeaea;
+}
+.info-body-load {
+  cursor: pointer;
+  color: #1971d5 !important;
+  display: inline-block;
+  margin: 0 5px 5px 0;
+}
+.rel-info-container .info-body-load {
+  cursor: pointer;
+  color: #1971d5;
+  display: inline-block;
+  margin: 0 5px 5px 0;
+}
+.rel-info-container .info-bread {
+  background: #fff;
+  height: 40px;
+  line-height: 40px;
+  text-indent: 20px;
+  border-bottom: 1px solid #ddd;
+}
+.rel-info-container .info-bread > span:first-child {
+  cursor: pointer;
+}
+.rel-info-container .info-body {
+  padding: 0 20px 20px 20px;
+  background: #fff;
+}
+.rel-info-container .info-body .info-body-title {
+  padding: 20px 0;
+}
+.rel-info-container .info-body .info-body-title span {
+  font-size: 18px;
+}
+.rel-info-container .info-body .info-body-title span:first-child {
+  font-weight: 900;
+}
+.rel-info-container .info-body .info-body-title span.pay-btn,
+.rel-info-container .info-body .info-body-title a.pay-btn,
+.rel-info-container .info-body .info-body-title span.work-btn,
+.rel-info-container .info-body .info-body-title a.work-btn {
+  padding: 8px 20px;
+  color: #fff;
+  font-size: 14px;
+  margin: 0 5px;
+  float: right;
+  cursor: pointer;
+  position: relative;
+  top: -5px;
+}
+.rel-info-container .info-body .info-body-title span.pay-btn,
+.rel-info-container .info-body .info-body-title a.pay-btn {
+  background: #ffa200;
+}
+.rel-info-container .info-body .info-body-title span.work-btn,
+.rel-info-container .info-body .info-body-title a.work-btn {
+  background: #1971d5;
+}
+.rel-info-container .info-body-step .info-body-step-line {
+  width: 890px;
+}
+.private-undertake-search {
+  background: #fff;
+  margin: 20px 0;
+  line-height: 55px;
+  padding: 0 30px;
+}
+.private-undertake-search > div.private-undertake-search-name {
+  display: flex;
+}
+.private-undertake-search > div.private-undertake-search-name > b {
+  width: 85px;
+}
+.private-undertake-search span {
+  padding: 5px 12px;
+  cursor: pointer;
+}
+.private-undertake-search button {
+  width: 60px;
+  height: 28px;
+  background: #1971d5;
+  border: 0;
+  color: #fff;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.private-undertake-search button:focus {
+  outline: 0;
+}
+.private-undertake-search span.mission-type-action {
+  background: #eaeaea;
+}
+.private-undertake-table .el-table {
+  border: 0;
+}
+.private-undertake-table .el-table th {
+  background: #f2f5f9;
+}
+.private-undertake-table .el-table th > div {
+  background: #f2f5f9;
+}
+.private-undertake-table .el-table:after {
+  width: 0;
+}
+.private-undertake-table .private-undertake-pag {
+  text-align: center;
+  margin-top: 20px;
+}
+.showInfo {
+  color: #1971d5;
+  cursor: pointer;
+}
+.head-style {
+  font-weight: 900;
+}
+.release-approval-top,
+.release-approval-bottom {
+  padding: 20px;
+  line-height: 30px;
+}
+.release-approval-top span,
+.release-approval-bottom span {
+  color: #868686;
+}
+.release-approval-top {
+  padding-bottom: 0;
+}
+.release-approval-top > ul > li:first-child>span {
+  font-size: 20px;
+  font-weight: 900;
+  color: #323232;
+}
+.release-approval-top > ul > li:last-child {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+}
+.release-approval-bottom {
+  height: 466px;
+}
+.release-pay-con {
+  width: 300px;
+  height: 100px;
+  border: 1px solid #ddd;
+}
+.release-pay-con > div {
+  text-align: center;
+  height: 50px;
+}
+.release-pay-con > div:first-child {
+  line-height: 50px;
+}
+.release-pay-con > div:last-child {
+  line-height: 35px;
+}
+.release-pay-con > div:last-child input {
+  width: 240px;
+  border: 1px solid #ddd;
+  height: 25px;
+  padding-left: 10px;
+  outline: 0;
+}

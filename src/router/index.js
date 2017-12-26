@@ -1,39 +1,22 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Map from '@/components/Map'
-import Balance from '@/components/Balance'
-import TransferEther from '@/components/TransferEther'
-import TransferSubstitute from '@/components/TransferSubstitute'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Layout from '../views/layout/Layout';
+const _import = require('./_import_production');
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
+    {path: '/login', component: _import('login/index')},
+    {path: '/404', component: _import('errorPage/404')},
     {
-      path: '/hello',
-      name: 'HelloWorld',
-      component: HelloWorld
-    }, {
       path: '/',
-      name: 'map',
-      component: Map
-    }, {
-      path: '/balance',
-      name: 'Balance',
-      component: Balance
-    }, {
-      path: '/transfer-ether',
-      name: 'TransferEther',
-      component: TransferEther
-    }, {
-      path: '/transfer-ether',
-      name: 'TransferEther',
-      component: TransferEther
-    }, {
-      path: '/transfer-substitute',
-      name: 'TransferSubstitute',
-      component: TransferSubstitute
+      component: Layout,
+      redirect: '/home',
+      name: '布局',
+      children: [
+        {path: 'home', component: _import('home/index'), name: '首页'}
+      ]
     }
   ]
-})
+});
