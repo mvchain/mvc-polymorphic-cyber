@@ -50,8 +50,8 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-input placeholder="请输入秘钥" v-model="privateKey">
-          <template slot="prepend">导入钱包：输入秘钥</template>
+        <el-input placeholder="请输入私钥" v-model="privateKey">
+          <template slot="prepend">导入钱包：输入私钥</template>
           <el-button slot="append" icon="el-icon-search" @click="getPrivateWallet"></el-button>
         </el-input>
       </el-col>
@@ -64,13 +64,19 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-          <el-button @click="exportKeyFile">到处key文件</el-button>
+        <el-input placeholder="请输入私钥" v-model="orderHash">
+          <template slot="prepend">查看钱包信息</template>
+          <el-button slot="append" @click="exportKeyFile">导出</el-button>
+        </el-input>
       </el-col>
     </el-row>
   </div>
 </template>
 <script type='text/ecmascript-6'>
+  import Tx from 'ethereumjs-tx';
+
   let encrypt = new window.JSEncrypt();
+
   export default {
     data() {
       return {
@@ -79,6 +85,7 @@
         transferCount: 0.001,
         keyResult: '0x5D748f8C84f90348fB3A4AE2F8B815010a91CF73',
         orderHash: '',
+        nonceNum: '',
         privateKey: '1bbd568c95b4bc2fb75056921b781adc66dad3471d25d90e002849c46b8ef400',
         pKey: '',
         transferFrom: '0x58f103AdABe28D60febfB2fB732FEf8C7aCDbDa3',
@@ -127,17 +134,32 @@
           cancelButtonText: '取消'
         }).then(({value}) => {
           let that = this;
-          let encrypted = encrypt.encrypt(value);
-          let tx = {
-            'pass': encrypted,
-            'from': that.transferFrom,
-            'to': that.transferTo,
-            'value': that.transferCount
-          };
-          this.$store.dispatch('sendTransaction', tx).then((res) => {
-            this.orderHash = res.result;
+          this.$store.dispatch('getNonceNum', {address: that.transferFrom}).then((res) => {
+            this.nonceNum = res;
           }).catch((err) => {
             this.$message.error(err);
+          }).then(() => {
+            let privateKey = Buffer.from(value, 'hex');
+            let rawTx = {
+              nonce: that.nonceNum,
+              from: that.transferFrom,
+              gasPrice: '0x4a817c800',
+              gasLimit: '0x15f90',
+              to: that.transferTo,
+              value: that.transferCount
+            };
+            let tx = new Tx(rawTx);
+            tx.sign(privateKey);
+            let serializedTx = '0x' + tx.serialize().toString('hex');
+            this.$store.dispatch('getRawTransaction', {signedMessage: serializedTx}).then((res) => {
+              if (!res.transactionHash) {
+                this.$message.error(res.error.message);
+              } else {
+                this.orderHash = res.result;
+              }
+            }).catch((err) => {
+              this.$message.error(err);
+            });
           });
         });
       },
@@ -174,7 +196,7 @@
         });
       },
       exportKeyFile() {
-
+        console.log(123);
       }
     }
   };

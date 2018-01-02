@@ -68,3 +68,42 @@ export async function importKeyFile(data) {
     });
   });
 }
+export async function sendRawTransaction(data) {
+  return new Promise((resolve, reject) => {
+    service({
+      url: '/eth_sendRawTransaction',
+      method: 'post',
+      data
+    }).then((res) => {
+      resolve(res);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+export async function getNonce(data) {
+  return new Promise((resolve, reject) => {
+    service({
+      url: '/transactionCount',
+      method: 'post',
+      data
+    }).then((res) => {
+      resolve(res);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+export async function personalByKeyDate(data) {
+  return new Promise((resolve, reject) => {
+    service({
+      url: '/personalByKeyDate',
+      method: 'post',
+      data
+    }).then((res) => {
+      resolve(res);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
