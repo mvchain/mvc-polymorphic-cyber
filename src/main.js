@@ -9,6 +9,9 @@ import ElementUI from 'element-ui';
 import './permission'; // 权限
 import '../static/blockConfig';
 import 'element-ui/lib/theme-chalk/index.css';
+
+import Web3 from 'web3';
+window.web3 = new Web3();
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 

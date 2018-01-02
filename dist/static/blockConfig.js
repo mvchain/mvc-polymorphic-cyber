@@ -1,8 +1,7 @@
-import Web3 from 'web3';
-window.web3 = new Web3();
+
 let urlData = {
-  url: 'http://127.0.0.1',
-  port: '8082',
+  url: 'https://wendalab.top',
+  port: '',
   file: '/ethereum'
 };
 window.urlData = urlData;
