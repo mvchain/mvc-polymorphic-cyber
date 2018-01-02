@@ -97,7 +97,7 @@ export async function getNonce(data) {
 export async function personalByKeyDate(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/personalByKeyDate',
+      url: '/personalByPrivateKey',
       method: 'post',
       data
     }).then((res) => {

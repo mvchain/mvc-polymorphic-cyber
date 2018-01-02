@@ -1,7 +1,7 @@
 {
-  "name": "artisan-browser",
+  "name": "mvc-wallet-browser",
   "version": "1.0.0",
-  "description": "趋匠",
+  "description": "小牛链",
   "author": "ningjianhao <375332835@qq.com>",
   "private": true,
   "scripts": {

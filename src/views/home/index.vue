@@ -64,10 +64,13 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-        <el-input placeholder="请输入私钥" v-model="orderHash">
+        <el-input placeholder="请输入私钥" v-model="privateKey">
           <template slot="prepend">查看钱包信息</template>
           <el-button slot="append" @click="exportKeyFile">导出</el-button>
         </el-input>
+      </el-col>
+      <el-col :span="24">
+        <el-input></el-input>
       </el-col>
     </el-row>
   </div>
@@ -83,13 +86,13 @@
         balance: '',
         balanceCoin: '0.00',
         transferCount: 0.001,
-        keyResult: '0x5D748f8C84f90348fB3A4AE2F8B815010a91CF73',
+        keyResult: '',
         orderHash: '',
         nonceNum: '',
-        privateKey: '1bbd568c95b4bc2fb75056921b781adc66dad3471d25d90e002849c46b8ef400',
+        privateKey: '',
         pKey: '',
-        transferFrom: '0x58f103AdABe28D60febfB2fB732FEf8C7aCDbDa3',
-        transferTo: '0x98fd7a69b3550f3d24998b32254191f701b0afb1',
+        transferFrom: '',
+        transferTo: '',
         tableData: {},
         blockId: 'latest'
       };
@@ -196,7 +199,12 @@
         });
       },
       exportKeyFile() {
-        console.log(123);
+        let encrypted1 = encrypt.encrypt(this.privateKey);
+        this.$store.dispatch('getPersonalByKeyDate', {privateKey: encrypted1}).then((res) => {
+          console.log(res);
+        }).catch((err) => {
+          console.log(err);
+        });
       }
     }
   };
