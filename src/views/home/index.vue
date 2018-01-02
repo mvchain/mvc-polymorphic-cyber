@@ -40,7 +40,7 @@
       <el-col :span="24">
         <el-card class="box-card">
           <span v-if="!tableData.blockHash">暂无信息</span>
-          <div v-for="(v,k) in tableData" :key="k" >
+          <div v-for="(v,k) in tableData" :key="k">
             <div>
               <b>{{k}}:</b><span>{{v}}</span>
             </div>
@@ -48,29 +48,63 @@
         </el-card>
       </el-col>
     </el-row>
+    <el-row>
+      <el-col :span="24">
+        <el-input placeholder="请输入秘钥" v-model="privateKey">
+          <template slot="prepend">导入钱包：输入秘钥</template>
+          <el-button slot="append" icon="el-icon-search" @click="getPrivateWallet"></el-button>
+        </el-input>
+      </el-col>
+      <el-col :span="24">
+        <el-card class="box-card">
+          <div class="balance-con" v-if="keyResult">你的地址：<span>{{keyResult}}</span></div>
+          <div class="balance-con" v-if="keyResult === null">秘钥文件已存在</div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="24">
+          <el-button @click="exportKeyFile">到处key文件</el-button>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script type='text/ecmascript-6'>
+  let encrypt = new window.JSEncrypt();
   export default {
     data() {
       return {
         balance: '',
         balanceCoin: '0.00',
         transferCount: 0.001,
+        keyResult: '0x5D748f8C84f90348fB3A4AE2F8B815010a91CF73',
         orderHash: '',
-        transferFrom: '451ee9cbdcfa80c24a51701b82717e7e62e4914d',
-        transferTo: '',
-        tableData: {}
+        privateKey: '1bbd568c95b4bc2fb75056921b781adc66dad3471d25d90e002849c46b8ef400',
+        pKey: '',
+        transferFrom: '0x58f103AdABe28D60febfB2fB732FEf8C7aCDbDa3',
+        transferTo: '0x98fd7a69b3550f3d24998b32254191f701b0afb1',
+        tableData: {},
+        blockId: 'latest'
       };
     },
     mounted: function () {
+      this.$store.dispatch('getPublicKey').then((res) => {
+        this.pKey = res;
+        encrypt.setPublicKey(this.pKey);
+      }).catch((err) => {
+        this.$message.error(err);
+      });
     },
     components: {},
-    computed: {},
+
     methods: {
       getBalance() {
         if (this.balance.replace(/\s/ig, '')) {
-          this.balanceCoin = Number(window.web3.fromWei(window.web3.eth.getBalance(this.balance)));
+          this.$store.dispatch('getBalance', {address: this.balance, blockId: this.blockId}).then((res) => {
+            this.balanceCoin = res;
+          }).catch((err) => {
+            this.$message.error(err);
+          });
         } else {
           this.balanceCoin = '0.00';
         }
@@ -93,35 +127,54 @@
           cancelButtonText: '取消'
         }).then(({value}) => {
           let that = this;
-          window.web3.personal.unlockAccount(this.transferFrom, value, function (res, err) {
-            if (err === true) {
-              let tx = {
-                from: that.transferFrom,
-                to: that.transferTo,
-                value: window.web3.toWei(0.001, 'ether')
-              };
-              window.web3.personal.sendTransaction(tx, value, (res, err) => {
-                if (err) {
-                  that.orderHash = err;
-                }
-              });
-            } else {
-              that.$message.error('秘钥错误');
-            }
+          let encrypted = encrypt.encrypt(value);
+          let tx = {
+            'pass': encrypted,
+            'from': that.transferFrom,
+            'to': that.transferTo,
+            'value': that.transferCount
+          };
+          this.$store.dispatch('sendTransaction', tx).then((res) => {
+            this.orderHash = res.result;
+          }).catch((err) => {
+            this.$message.error(err);
           });
-        }).catch(() => {
         });
       },
       getTransferInfo() {
-        let that = this;
-        window.web3.eth.getTransaction(that.orderHash, (res, rej) => {
+        if (!this.orderHash) {
+          this.tableData = {};
+          return;
+        }
+        this.$store.dispatch('getTransactionBtHash', {transactionHash: this.orderHash}).then((res) => {
+          let rej = res.result;
           if (typeof rej === 'object') {
             rej.gas = window.web3.fromWei(rej.gas);
             rej.gasPrice = window.web3.fromWei(Number(rej.gasPrice));
             rej.value = window.web3.fromWei(Number(rej.value)) + 'ether';
-            that.tableData = rej;
+            this.tableData = rej;
           }
+        }).catch((err) => {
+          this.$message.error(err);
         });
+      },
+      getPrivateWallet() {
+        this.$prompt('你的钱包被加密，请输入密码：', '提示', {
+          confirmButtonText: '确定',
+          inputType: 'password',
+          cancelButtonText: '取消'
+        }).then(({value}) => {
+          let encrypted = encrypt.encrypt(value);
+          let encrypted1 = encrypt.encrypt(this.privateKey);
+          this.$store.dispatch('getKeyFile', {keydata: encrypted1, passphrase: encrypted}).then((res) => {
+            this.keyResult = res.result;
+          }).catch((err) => {
+            this.$message.error(err);
+          });
+        });
+      },
+      exportKeyFile() {
+
       }
     }
   };
@@ -138,11 +191,11 @@
     text-indent: 20px;
 
   .box-card
-    text-align :left;
+    text-align: left;
 
     & b
-      display :inline-block;
-      width:200px;
+      display: inline-block;
+      width: 200px;
       padding: 5px 0;
 
 </style>

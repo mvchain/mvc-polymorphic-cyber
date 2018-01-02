@@ -1,6 +1,8 @@
 import Web3 from 'web3';
-if (typeof window.web3 !== 'undefined') {
-  window.web3 = new Web3(window.web3.currentProvider);
-} else {
-  window.web3 = new Web3(new Web3.providers.HttpProvider('http://47.52.202.250:8545'));
-}
+window.web3 = new Web3();
+let urlData = {
+  url: 'http://192.168.201.22',
+  port: '8080',
+  file: '/ethereum'
+};
+export default urlData;
