@@ -48,29 +48,41 @@
         </el-card>
       </el-col>
     </el-row>
-    <el-row>
+    <el-row class="upload-row">
+      <el-col :span="4" class="up-load">
+        <el-upload
+          class="upload-demo"
+          ref="upload"
+          action="http://192.168.201.22:8080/ethereum/personalByKeyDate"
+          :data="uploadData"
+          :on-success="uploadSucc"
+          :on-error="uploadErr"
+          multiple
+          :auto-upload="false"
+          :limit="3"
+        >
+          <el-button size="small" type="primary">选取文件</el-button>
+        </el-upload>
+        <el-button size="small" type="primary" @click="submitUpload">点击上传</el-button>
+      </el-col>
+      <el-col :span="20">
+        <div class="key-title">查看钱包信息：key文件</div>
+      </el-col>
+      <el-col :span="20">
+        <div class="balance-con">你的地址：<span>{{addResult}}</span></div>
+        <div class="balance-con">你的秘钥：<span>{{keyResult}}</span></div>
+      </el-col>
       <el-col :span="24">
         <el-input placeholder="请输入私钥" v-model="privateKey">
-          <template slot="prepend">导入钱包：输入私钥</template>
-          <el-button slot="append" icon="el-icon-search" @click="getPrivateWallet"></el-button>
+          <template slot="prepend">查看钱包信息：秘钥</template>
+          <el-button slot="append" @click="exportKeyFile">解锁</el-button>
         </el-input>
       </el-col>
       <el-col :span="24">
         <el-card class="box-card">
-          <div class="balance-con" v-if="keyResult">你的地址：<span>{{keyResult}}</span></div>
-          <div class="balance-con" v-if="keyResult === null">秘钥文件已存在</div>
+          <div class="balance-con">你的地址：<span>{{addResult}}</span></div>
+          <div class="balance-con">你的秘钥：<span>{{keyResult}}</span></div>
         </el-card>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="24">
-        <el-input placeholder="请输入私钥" v-model="privateKey">
-          <template slot="prepend">查看钱包信息</template>
-          <el-button slot="append" @click="exportKeyFile">导出</el-button>
-        </el-input>
-      </el-col>
-      <el-col :span="24">
-        <el-input></el-input>
       </el-col>
     </el-row>
   </div>
@@ -88,6 +100,10 @@
         transferCount: 0.001,
         keyResult: '',
         orderHash: '',
+        addResult: '',
+        uploadData: {
+          passhphrase: ''
+        },
         nonceNum: '',
         privateKey: '',
         pKey: '',
@@ -108,6 +124,26 @@
     components: {},
 
     methods: {
+      submitUpload() {
+        this.$prompt('请输入密码', '提示', {
+          confirmButtonText: '确定',
+          inputType: 'password',
+          cancelButtonText: '取消'
+        }).then(({value}) => {
+          if (value.replace(/\s/ig, '')) {
+            this.uploadData.passhphrase = encrypt.encrypt(value);
+            this.$refs.upload.submit();
+          }
+        }).catch(() => {
+        });
+      },
+      uploadSucc(response, file, fileList) {
+        this.keyResult = response.privateKey;
+        this.addResult = response.address;
+      },
+      uploadErr(err, file, fileList) {
+        console.log(err);
+      },
       getBalance() {
         if (this.balance.replace(/\s/ig, '')) {
           this.$store.dispatch('getBalance', {address: this.balance, blockId: this.blockId}).then((res) => {
@@ -149,7 +185,7 @@
               gasPrice: '0x4a817c800',
               gasLimit: '0x15f90',
               to: that.transferTo,
-              value: that.transferCount
+              value: window.web3.fromDecimal(window.web3.toWei(that.transferCount, 'ether'))
             };
             let tx = new Tx(rawTx);
             tx.sign(privateKey);
@@ -183,25 +219,11 @@
           this.$message.error(err);
         });
       },
-      getPrivateWallet() {
-        this.$prompt('你的钱包被加密，请输入密码：', '提示', {
-          confirmButtonText: '确定',
-          inputType: 'password',
-          cancelButtonText: '取消'
-        }).then(({value}) => {
-          let encrypted = encrypt.encrypt(value);
-          let encrypted1 = encrypt.encrypt(this.privateKey);
-          this.$store.dispatch('getKeyFile', {keydata: encrypted1, passphrase: encrypted}).then((res) => {
-            this.keyResult = res.result;
-          }).catch((err) => {
-            this.$message.error(err);
-          });
-        });
-      },
       exportKeyFile() {
         let encrypted1 = encrypt.encrypt(this.privateKey);
         this.$store.dispatch('getPersonalByKeyDate', {privateKey: encrypted1}).then((res) => {
-          console.log(res);
+          this.keyResult = res.privateKey;
+          this.addResult = res.address;
         }).catch((err) => {
           console.log(err);
         });
@@ -228,4 +250,20 @@
       width: 200px;
       padding: 5px 0;
 
+  .upload-demo
+    background: #fff;
+    border-radius: 5px;
+  .up-load
+    background:#fff;
+    line-height:54px;
+  .upload-row
+    background :#fff;
+  .key-title
+    background-color: #f5f7fa;
+    color: #909399;
+    vertical-align: middle;
+    text-align :left;
+    border: 1px solid #dcdfe6;
+    border-radius: 4px;
+    padding: 10px 20px;
 </style>

@@ -793,7 +793,6 @@ module.exports = [{"constant":true,"inputs":[{"name":"_owner","type":"address"}]
 
 
 
-
 /***/ }),
 
 /***/ "YPbV":
@@ -1083,4 +1082,4 @@ var Component = normalizeComponent(
 /***/ })
 
 },["NHnr"]);
-//# sourceMappingURL=app.7186ad8cbcb4f6ab5f12.js.map
+//# sourceMappingURL=app.4eb408ba28dddb6b7fe1.js.map
