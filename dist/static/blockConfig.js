@@ -1,7 +1,6 @@
 
 let urlData = {
-  url: 'https://wendalab.top',
-  port: '',
-  file: '/ethereum'
+  url: 'http://192.168.201.22',
+  port: '8080'
 };
 window.urlData = urlData;

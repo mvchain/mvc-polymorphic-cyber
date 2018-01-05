@@ -133,3 +133,16 @@ export async function tokenSendTransaction(data) {
     });
   });
 }
+export async function localToken(data) {
+  return new Promise((resolve, reject) => {
+    service({
+      url: '/0xc83783e5f32d1157498e6374b6ab2aec48ff4428/txList',
+      method: 'post',
+      data
+    }).then((res) => {
+      resolve(res);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}

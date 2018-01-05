@@ -12,7 +12,8 @@ import {
   getNonce,
   personalByKeyDate,
   tokenBalance,
-  tokenSendTransaction } from '../../services/index';
+  tokenSendTransaction,
+  localToken} from '../../services/index';
 const Home = {
   state: {
   },
@@ -111,6 +112,15 @@ const Home = {
     getTokenTransaction({commit}, payload) {
       return new Promise((resolve, reject) => {
         tokenSendTransaction(payload).then((res) => {
+          resolve(res);
+        }).catch((err) => {
+          reject(err);
+        });
+      });
+    },
+    getTokenLocal({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        localToken(payload).then((res) => {
           resolve(res);
         }).catch((err) => {
           reject(err);

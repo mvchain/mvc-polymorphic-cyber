@@ -118,6 +118,106 @@
         <div class="balance-con">TXhash值：<span>{{tokenOrderHash}}</span></div>
       </el-col>
     </el-row>
+    <el-row>
+      <el-input placeholder="请输入地址" v-model="localAddress">
+        <template slot="prepend">查询交易记录</template>
+        <el-button slot="append" icon="el-icon-search" @click="getLocal"></el-button>
+      </el-input>
+      <el-col :span="24">
+        <el-table
+          :data="tokenTableData"
+          style="width: 100%">
+          <el-table-column
+            type="index"
+            label="序号"
+          >
+          </el-table-column>
+          <el-table-column type="expand">
+            <template slot-scope="props">
+              <el-row class="templateStyle">
+                <el-col :span="12">
+                  <span>blockHash:{{props.row.blockHash}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>blockNumber:{{props.row.blockNumber}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>confirmations:{{props.row.confirmations}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>contractAddress:{{props.row.contractAddress}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>from:{{props.row.from}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>to:{{props.row.to}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>gas:{{props.row.gas}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>gasPrice:{{props.row.gasPrice}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>gasUsed:{{props.row.gasUsed}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>hash:{{props.row.hash}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>input:{{props.row.input}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>isError:{{props.row.isError}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>nonce:{{props.row.nonce}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>timeStamp:{{props.row.timeStamp|timeFilter }}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>transactionIndex:{{props.row.transactionIndex}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>txreceipt_status:{{props.row.txreceipt_status}}</span>
+                </el-col>
+                <el-col :span="12">
+                  <span>value:{{toValue(props.row.input)}}</span>
+                </el-col>
+              </el-row>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="hash"
+            label="hash">
+          </el-table-column>
+          <el-table-column
+            label="数量"
+          >
+            <template slot-scope="scope">
+              <span>{{toValue(scope.row.input)}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="from"
+            label="from">
+          </el-table-column>
+          <el-table-column
+            prop="to"
+            label="to">
+          </el-table-column>
+          <el-table-column
+            label="时间">
+            <template slot-scope="scope">
+              <span>{{scope.row.timeStamp | timeFilter}}</span>
+            </template>
+          </el-table-column>
+
+        </el-table>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script type='text/ecmascript-6'>
@@ -149,7 +249,9 @@
         tokenTransferFrom: '',
         tokenTransferTo: '',
         tokenTransferCount: '',
-        tokenOrderHash: ''
+        tokenOrderHash: '',
+        localAddress: '',
+        tokenTableData: []
       };
     },
     mounted: function () {
@@ -163,6 +265,13 @@
     components: {},
 
     methods: {
+      toValue(v) {
+        if (v && v !== '0x') {
+          return window.web3.toDecimal('0x' + v.substr(v.length - 64));
+        } else {
+          return '0';
+        }
+      },
       submitUpload() {
         this.$prompt('请输入密码', '提示', {
           confirmButtonText: '确定',
@@ -307,6 +416,15 @@
         }).catch((err) => {
           console.log(err);
         });
+      },
+      getLocal() {
+        this.$store.dispatch('getTokenLocal', {address: this.localAddress}).then((res) => {
+          if (res.status === '1') {
+            this.tokenTableData = res.result;
+          }
+        }).catch((err) => {
+          this.$message.error(err);
+        });
       }
     }
   };
@@ -353,4 +471,12 @@
   .other-coin
     font-size: 20px;
     margin-bottom: 20px;
+
+  .templateStyle
+    text-align: left;
+
+    & > .el-col-12
+      overflow-y: hidden;
+      padding: 10px 20px;
+
 </style>
