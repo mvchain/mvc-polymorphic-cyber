@@ -7,7 +7,7 @@ import service from '../utils/request';
 export async function publicKey() {
   return new Promise((resolve, reject) => {
     service({
-      url: '/publicKey',
+      url: '/ethereum/publicKey',
       method: 'post'
     }).then((res) => {
       resolve(res);
@@ -19,7 +19,7 @@ export async function publicKey() {
 export async function balance(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/eth_getBalance',
+      url: '/ethereum/eth_getBalance',
       method: 'post',
       data
     }).then((res) => {
@@ -32,7 +32,7 @@ export async function balance(data) {
 export async function transaction(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/eth_sendTransaction',
+      url: '/ethereum/eth_sendTransaction',
       method: 'post',
       data
     }).then((res) => {
@@ -45,7 +45,7 @@ export async function transaction(data) {
 export async function transactionByHash(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/eth_getTransactionByHash',
+      url: '/ethereum/eth_getTransactionByHash',
       method: 'post',
       data
     }).then((res) => {
@@ -58,7 +58,7 @@ export async function transactionByHash(data) {
 export async function importKeyFile(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/personal_importRawKey',
+      url: '/ethereum/personal_importRawKey',
       method: 'post',
       data
     }).then((res) => {
@@ -71,7 +71,7 @@ export async function importKeyFile(data) {
 export async function sendRawTransaction(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/eth_sendRawTransaction',
+      url: '/ethereum/eth_sendRawTransaction',
       method: 'post',
       data
     }).then((res) => {
@@ -84,7 +84,7 @@ export async function sendRawTransaction(data) {
 export async function getNonce(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/transactionCount',
+      url: '/ethereum/transactionCount',
       method: 'post',
       data
     }).then((res) => {
@@ -97,7 +97,33 @@ export async function getNonce(data) {
 export async function personalByKeyDate(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/personalByPrivateKey',
+      url: '/ethereum/personalByPrivateKey',
+      method: 'post',
+      data
+    }).then((res) => {
+      resolve(res);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+export async function tokenBalance(data) {
+  return new Promise((resolve, reject) => {
+    service({
+      url: '/0xc83783e5f32d1157498e6374b6ab2aec48ff4428/eth_getBalance',
+      method: 'post',
+      data
+    }).then((res) => {
+      resolve(res);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+export async function tokenSendTransaction(data) {
+  return new Promise((resolve, reject) => {
+    service({
+      url: '/0xc83783e5f32d1157498e6374b6ab2aec48ff4428/eth_sendTransaction',
       method: 'post',
       data
     }).then((res) => {

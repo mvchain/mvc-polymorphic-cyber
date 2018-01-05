@@ -2,7 +2,17 @@
  * Created by   :宁建浩
  * Created time :2017/11/13
  */
-import {publicKey, balance, transaction, transactionByHash, importKeyFile, sendRawTransaction, getNonce, personalByKeyDate} from '../../services/index';
+import {
+  publicKey,
+  balance,
+  transaction,
+  transactionByHash,
+  importKeyFile,
+  sendRawTransaction,
+  getNonce,
+  personalByKeyDate,
+  tokenBalance,
+  tokenSendTransaction } from '../../services/index';
 const Home = {
   state: {
   },
@@ -83,6 +93,24 @@ const Home = {
     getPersonalByKeyDate({commit}, payload) {
       return new Promise((resolve, reject) => {
         personalByKeyDate(payload).then((res) => {
+          resolve(res);
+        }).catch((err) => {
+          reject(err);
+        });
+      });
+    },
+    getTokenBalance({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        tokenBalance(payload).then((res) => {
+          resolve(res);
+        }).catch((err) => {
+          reject(err);
+        });
+      });
+    },
+    getTokenTransaction({commit}, payload) {
+      return new Promise((resolve, reject) => {
+        tokenSendTransaction(payload).then((res) => {
           resolve(res);
         }).catch((err) => {
           reject(err);

@@ -85,6 +85,39 @@
         </el-card>
       </el-col>
     </el-row>
+    <el-row>
+      <div class="other-coin">代币业务</div>
+      <el-row>
+        <el-input placeholder="请输入地址" v-model="tokenBalance">
+          <template slot="prepend">代币查询余额</template>
+          <el-button slot="append" icon="el-icon-search" @click="getTokenBalance"></el-button>
+        </el-input>
+        <el-col :span="24">
+          <div class="balance-con">余额：<span>{{tokenBalanceCoin}} （NJH）</span></div>
+        </el-col>
+      </el-row>
+    </el-row>
+    <el-row>
+      <el-col :span="8">
+        <el-input placeholder="请输入地址" v-model="tokenTransferFrom">
+          <template slot="prepend">转出</template>
+        </el-input>
+      </el-col>
+      <el-col :span="8">
+        <el-input placeholder="请输入地址" v-model="tokenTransferTo">
+          <template slot="prepend">转入</template>
+        </el-input>
+      </el-col>
+      <el-col :span="8">
+        <el-input placeholder="请输入地址" type="number" v-model="tokenTransferCount">
+          <template slot="prepend">转账数量</template>
+          <el-button slot="append" @click="getTokenTransfer">转账</el-button>
+        </el-input>
+      </el-col>
+      <el-col :span="24">
+        <div class="balance-con">TXhash值：<span>{{tokenOrderHash}}</span></div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script type='text/ecmascript-6'>
@@ -110,7 +143,13 @@
         transferFrom: '',
         transferTo: '',
         tableData: {},
-        blockId: 'latest'
+        blockId: 'latest',
+        tokenBalance: '',
+        tokenBalanceCoin: '',
+        tokenTransferFrom: '',
+        tokenTransferTo: '',
+        tokenTransferCount: '',
+        tokenOrderHash: ''
       };
     },
     mounted: function () {
@@ -142,7 +181,18 @@
         this.addResult = response.address;
       },
       uploadErr(err, file, fileList) {
-        console.log(err);
+        this.$message.error(err);
+      },
+      getTokenBalance() {
+        if (this.tokenBalance.replace(/\s/ig, '')) {
+          this.$store.dispatch('getTokenBalance', {address: this.tokenBalance, blockId: this.blockId}).then((res) => {
+            this.tokenBalanceCoin = res;
+          }).catch((err) => {
+            this.$message.error(err);
+          });
+        } else {
+          this.balanceCoin = '0.00';
+        }
       },
       getBalance() {
         if (this.balance.replace(/\s/ig, '')) {
@@ -202,6 +252,36 @@
           });
         });
       },
+      getTokenTransfer() {
+        if (this.tokenTransferFrom.replace(/\s/ig, '') && this.tokenTransferTo.replace(/\s/ig, '')) {
+          this.getTokenPassword();
+        } else {
+          this.$message.error('转账地址不能为空');
+        }
+      },
+      getTokenPassword() {
+        this.$prompt('请转账秘钥', '提示', {
+          confirmButtonText: '确定',
+          inputType: 'password',
+          cancelButtonText: '取消'
+        }).then(({value}) => {
+          let Tx = {
+            from: this.tokenTransferFrom,
+            to: this.tokenTransferTo,
+            pass: encrypt.encrypt(value),
+            value: this.tokenTransferCount
+          };
+          this.$store.dispatch('getTokenTransaction', Tx).then((res) => {
+            if (!res.transactionHash) {
+              this.$message.error(res.error.message);
+            } else {
+              this.tokenOrderHash = res.result;
+            }
+          }).catch((err) => {
+            this.$message.error(err);
+          });
+        });
+      },
       getTransferInfo() {
         if (!this.orderHash) {
           this.tableData = {};
@@ -253,17 +333,24 @@
   .upload-demo
     background: #fff;
     border-radius: 5px;
+
   .up-load
-    background:#fff;
-    line-height:54px;
+    background: #fff;
+    line-height: 54px;
+
   .upload-row
-    background :#fff;
+    background: #fff;
+
   .key-title
     background-color: #f5f7fa;
     color: #909399;
     vertical-align: middle;
-    text-align :left;
+    text-align: left;
     border: 1px solid #dcdfe6;
     border-radius: 4px;
     padding: 10px 20px;
+
+  .other-coin
+    font-size: 20px;
+    margin-bottom: 20px;
 </style>
