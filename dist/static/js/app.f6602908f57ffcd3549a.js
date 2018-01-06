@@ -1121,7 +1121,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 
 // 创建axios实例
 var service = __WEBPACK_IMPORTED_MODULE_1_axios___default.a.create({
-  baseURL: window.urlData.url + ':' + window.urlData.port, // api的base_url
+  baseURL: window.urlData.url  + window.urlData.port, // api的base_url
   timeout: 15000 // 请求超时时间
 });
 
