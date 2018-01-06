@@ -32,14 +32,14 @@ webpackJsonp([4],{
 
 
 var publicKey = function () {
-  var _ref = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+  var _ref = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_asyncToGenerator___default()( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(url) {
     return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             return _context.abrupt('return', new __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
               Object(__WEBPACK_IMPORTED_MODULE_3__utils_request__["a" /* default */])({
-                url: '/ethereum/publicKey',
+                url: url,
                 method: 'post'
               }).then(function (res) {
                 resolve(res);
@@ -56,7 +56,7 @@ var publicKey = function () {
     }, _callee, this);
   }));
 
-  return function publicKey() {
+  return function publicKey(_x) {
     return _ref.apply(this, arguments);
   };
 }();
@@ -68,7 +68,7 @@ var balance = function () {
           case 0:
             return _context2.abrupt('return', new __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
               Object(__WEBPACK_IMPORTED_MODULE_3__utils_request__["a" /* default */])({
-                url: '/ethereum/eth_getBalance',
+                url: data.url,
                 method: 'post',
                 data: data
               }).then(function (res) {
@@ -86,7 +86,7 @@ var balance = function () {
     }, _callee2, this);
   }));
 
-  return function balance(_x) {
+  return function balance(_x2) {
     return _ref2.apply(this, arguments);
   };
 }();
@@ -116,7 +116,7 @@ var transaction = function () {
     }, _callee3, this);
   }));
 
-  return function transaction(_x2) {
+  return function transaction(_x3) {
     return _ref3.apply(this, arguments);
   };
 }();
@@ -128,7 +128,7 @@ var transactionByHash = function () {
           case 0:
             return _context4.abrupt('return', new __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
               Object(__WEBPACK_IMPORTED_MODULE_3__utils_request__["a" /* default */])({
-                url: '/ethereum/eth_getTransactionByHash',
+                url: data.url,
                 method: 'post',
                 data: data
               }).then(function (res) {
@@ -146,7 +146,7 @@ var transactionByHash = function () {
     }, _callee4, this);
   }));
 
-  return function transactionByHash(_x3) {
+  return function transactionByHash(_x4) {
     return _ref4.apply(this, arguments);
   };
 }();
@@ -176,7 +176,7 @@ var importKeyFile = function () {
     }, _callee5, this);
   }));
 
-  return function importKeyFile(_x4) {
+  return function importKeyFile(_x5) {
     return _ref5.apply(this, arguments);
   };
 }();
@@ -188,7 +188,7 @@ var sendRawTransaction = function () {
           case 0:
             return _context6.abrupt('return', new __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
               Object(__WEBPACK_IMPORTED_MODULE_3__utils_request__["a" /* default */])({
-                url: '/ethereum/eth_sendRawTransaction',
+                url: data.url,
                 method: 'post',
                 data: data
               }).then(function (res) {
@@ -206,7 +206,7 @@ var sendRawTransaction = function () {
     }, _callee6, this);
   }));
 
-  return function sendRawTransaction(_x5) {
+  return function sendRawTransaction(_x6) {
     return _ref6.apply(this, arguments);
   };
 }();
@@ -218,7 +218,7 @@ var getNonce = function () {
           case 0:
             return _context7.abrupt('return', new __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
               Object(__WEBPACK_IMPORTED_MODULE_3__utils_request__["a" /* default */])({
-                url: '/ethereum/transactionCount',
+                url: data.url,
                 method: 'post',
                 data: data
               }).then(function (res) {
@@ -236,7 +236,7 @@ var getNonce = function () {
     }, _callee7, this);
   }));
 
-  return function getNonce(_x6) {
+  return function getNonce(_x7) {
     return _ref7.apply(this, arguments);
   };
 }();
@@ -248,7 +248,7 @@ var personalByKeyDate = function () {
           case 0:
             return _context8.abrupt('return', new __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
               Object(__WEBPACK_IMPORTED_MODULE_3__utils_request__["a" /* default */])({
-                url: '/ethereum/personalByPrivateKey',
+                url: data.url,
                 method: 'post',
                 data: data
               }).then(function (res) {
@@ -266,7 +266,7 @@ var personalByKeyDate = function () {
     }, _callee8, this);
   }));
 
-  return function personalByKeyDate(_x7) {
+  return function personalByKeyDate(_x8) {
     return _ref8.apply(this, arguments);
   };
 }();
@@ -278,7 +278,7 @@ var tokenBalance = function () {
           case 0:
             return _context9.abrupt('return', new __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
               Object(__WEBPACK_IMPORTED_MODULE_3__utils_request__["a" /* default */])({
-                url: '/0xc83783e5f32d1157498e6374b6ab2aec48ff4428/eth_getBalance',
+                url: data.url,
                 method: 'post',
                 data: data
               }).then(function (res) {
@@ -296,7 +296,7 @@ var tokenBalance = function () {
     }, _callee9, this);
   }));
 
-  return function tokenBalance(_x8) {
+  return function tokenBalance(_x9) {
     return _ref9.apply(this, arguments);
   };
 }();
@@ -308,7 +308,7 @@ var tokenSendTransaction = function () {
           case 0:
             return _context10.abrupt('return', new __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
               Object(__WEBPACK_IMPORTED_MODULE_3__utils_request__["a" /* default */])({
-                url: '/0xc83783e5f32d1157498e6374b6ab2aec48ff4428/eth_sendTransaction',
+                url: data.url,
                 method: 'post',
                 data: data
               }).then(function (res) {
@@ -326,7 +326,7 @@ var tokenSendTransaction = function () {
     }, _callee10, this);
   }));
 
-  return function tokenSendTransaction(_x9) {
+  return function tokenSendTransaction(_x10) {
     return _ref10.apply(this, arguments);
   };
 }();
@@ -338,7 +338,7 @@ var localToken = function () {
           case 0:
             return _context11.abrupt('return', new __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
               Object(__WEBPACK_IMPORTED_MODULE_3__utils_request__["a" /* default */])({
-                url: '/0xc83783e5f32d1157498e6374b6ab2aec48ff4428/txList',
+                url: data.url,
                 method: 'post',
                 data: data
               }).then(function (res) {
@@ -356,7 +356,7 @@ var localToken = function () {
     }, _callee11, this);
   }));
 
-  return function localToken(_x10) {
+  return function localToken(_x11) {
     return _ref11.apply(this, arguments);
   };
 }();
@@ -736,7 +736,19 @@ function timeFilter(time, cFormat) {
  */
 
 var Home = {
-  state: {},
+  state: {
+    url: {
+      balance: 'eth_getBalance',
+      publicKey: 'publicKey',
+      getTransaction: 'eth_sendTransaction',
+      getTransactionByHash: 'eth_getTransactionByHash',
+      importRawKey: 'personal_importRawKey',
+      sendRawTransaction: 'eth_sendRawTransaction',
+      transactionCount: 'transactionCount',
+      personalByPrivateKey: 'personalByPrivateKey',
+      txList: 'txList'
+    }
+  },
 
   mutations: {
     SET_PUBLIC_KEY: function SET_PUBLIC_KEY(state, payload) {
@@ -749,10 +761,11 @@ var Home = {
 
   actions: {
     getPublicKey: function getPublicKey(_ref) {
-      var commit = _ref.commit;
+      var commit = _ref.commit,
+          state = _ref.state;
 
       return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
-        Object(__WEBPACK_IMPORTED_MODULE_1__services_index__["f" /* publicKey */])().then(function (res) {
+        Object(__WEBPACK_IMPORTED_MODULE_1__services_index__["f" /* publicKey */])('/mvc/ethereum/' + state.url.publicKey).then(function (res) {
           resolve(res);
         }).catch(function (err) {
           reject(err);
@@ -760,9 +773,11 @@ var Home = {
       });
     },
     getBalance: function getBalance(_ref2, payload) {
-      var commit = _ref2.commit;
+      var commit = _ref2.commit,
+          state = _ref2.state;
 
       return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
+        payload.url = '/mvc/' + payload.token + '/' + state.url.balance;
         Object(__WEBPACK_IMPORTED_MODULE_1__services_index__["a" /* balance */])(payload).then(function (res) {
           resolve(res);
         }).catch(function (err) {
@@ -771,9 +786,11 @@ var Home = {
       });
     },
     sendTransaction: function sendTransaction(_ref3, payload) {
-      var commit = _ref3.commit;
+      var commit = _ref3.commit,
+          state = _ref3.state;
 
       return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
+        payload.url = '/mvc/' + payload.token + '/' + state.url.getTransaction;
         Object(__WEBPACK_IMPORTED_MODULE_1__services_index__["j" /* transaction */])(payload).then(function (res) {
           resolve(res);
         }).catch(function (err) {
@@ -782,9 +799,11 @@ var Home = {
       });
     },
     getTransactionBtHash: function getTransactionBtHash(_ref4, payload) {
-      var commit = _ref4.commit;
+      var commit = _ref4.commit,
+          state = _ref4.state;
 
       return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
+        payload.url = '/mvc/' + payload.token + '/' + state.url.getTransactionByHash;
         Object(__WEBPACK_IMPORTED_MODULE_1__services_index__["k" /* transactionByHash */])(payload).then(function (res) {
           resolve(res);
         }).catch(function (err) {
@@ -793,9 +812,11 @@ var Home = {
       });
     },
     getKeyFile: function getKeyFile(_ref5, payload) {
-      var commit = _ref5.commit;
+      var commit = _ref5.commit,
+          state = _ref5.state;
 
       return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
+        payload.url = '/mvc/' + payload.token + '/' + state.url.importRawKey;
         Object(__WEBPACK_IMPORTED_MODULE_1__services_index__["c" /* importKeyFile */])(payload).then(function (res) {
           resolve(res);
         }).catch(function (err) {
@@ -804,9 +825,11 @@ var Home = {
       });
     },
     getRawTransaction: function getRawTransaction(_ref6, payload) {
-      var commit = _ref6.commit;
+      var commit = _ref6.commit,
+          state = _ref6.state;
 
       return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
+        payload.url = '/mvc/' + payload.token + '/' + state.url.sendRawTransaction;
         Object(__WEBPACK_IMPORTED_MODULE_1__services_index__["g" /* sendRawTransaction */])(payload).then(function (res) {
           resolve(res);
         }).catch(function (err) {
@@ -815,9 +838,11 @@ var Home = {
       });
     },
     getNonceNum: function getNonceNum(_ref7, payload) {
-      var commit = _ref7.commit;
+      var commit = _ref7.commit,
+          state = _ref7.state;
 
       return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
+        payload.url = '/mvc/' + payload.token + '/' + state.url.transactionCount;
         Object(__WEBPACK_IMPORTED_MODULE_1__services_index__["b" /* getNonce */])(payload).then(function (res) {
           resolve(res);
         }).catch(function (err) {
@@ -826,9 +851,11 @@ var Home = {
       });
     },
     getPersonalByKeyDate: function getPersonalByKeyDate(_ref8, payload) {
-      var commit = _ref8.commit;
+      var commit = _ref8.commit,
+          state = _ref8.state;
 
       return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
+        payload.url = '/mvc/' + payload.token + '/' + state.url.personalByPrivateKey;
         Object(__WEBPACK_IMPORTED_MODULE_1__services_index__["e" /* personalByKeyDate */])(payload).then(function (res) {
           resolve(res);
         }).catch(function (err) {
@@ -837,9 +864,11 @@ var Home = {
       });
     },
     getTokenBalance: function getTokenBalance(_ref9, payload) {
-      var commit = _ref9.commit;
+      var commit = _ref9.commit,
+          state = _ref9.state;
 
       return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
+        payload.url = '/mvc/' + payload.token + '/' + state.url.balance;
         Object(__WEBPACK_IMPORTED_MODULE_1__services_index__["h" /* tokenBalance */])(payload).then(function (res) {
           resolve(res);
         }).catch(function (err) {
@@ -848,9 +877,11 @@ var Home = {
       });
     },
     getTokenTransaction: function getTokenTransaction(_ref10, payload) {
-      var commit = _ref10.commit;
+      var commit = _ref10.commit,
+          state = _ref10.state;
 
       return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
+        payload.url = '/mvc/' + payload.token + '/' + state.url.getTransaction;
         Object(__WEBPACK_IMPORTED_MODULE_1__services_index__["i" /* tokenSendTransaction */])(payload).then(function (res) {
           resolve(res);
         }).catch(function (err) {
@@ -859,9 +890,11 @@ var Home = {
       });
     },
     getTokenLocal: function getTokenLocal(_ref11, payload) {
-      var commit = _ref11.commit;
+      var commit = _ref11.commit,
+          state = _ref11.state;
 
       return new __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_promise___default.a(function (resolve, reject) {
+        payload.url = '/mvc/' + payload.token + '/' + state.url.txList;
         Object(__WEBPACK_IMPORTED_MODULE_1__services_index__["d" /* localToken */])(payload).then(function (res) {
           resolve(res);
         }).catch(function (err) {
@@ -1121,7 +1154,7 @@ var esExports = { render: render, staticRenderFns: staticRenderFns }
 
 // 创建axios实例
 var service = __WEBPACK_IMPORTED_MODULE_1_axios___default.a.create({
-  baseURL: window.urlData.url  + window.urlData.port, // api的base_url
+  baseURL: window.urlData.url + ':' + window.urlData.port, // api的base_url
   timeout: 15000 // 请求超时时间
 });
 
@@ -1206,4 +1239,4 @@ var Component = normalizeComponent(
 /***/ })
 
 },["NHnr"]);
-//# sourceMappingURL=app.f6602908f57ffcd3549a.js.map
+//# sourceMappingURL=app.79b32331abf44c5c3197.js.map

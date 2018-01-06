@@ -53,7 +53,7 @@
         <el-upload
           class="upload-demo"
           ref="upload"
-          action="http://192.168.201.22:8080/ethereum/personalByKeyDate"
+          :action=importUrl
           :data="uploadData"
           :on-success="uploadSucc"
           :on-error="uploadErr"
@@ -88,6 +88,10 @@
     <el-row>
       <div class="other-coin">代币业务</div>
       <el-row>
+        <el-input placeholder="请输入合约地址" v-model="tokenAddress">
+          <template slot="prepend">输入合约地址</template>
+          <el-button slot="append" ></el-button>
+        </el-input>
         <el-input placeholder="请输入地址" v-model="tokenBalance">
           <template slot="prepend">代币查询余额</template>
           <el-button slot="append" icon="el-icon-search" @click="getTokenBalance"></el-button>
@@ -224,11 +228,13 @@
   import Tx from 'ethereumjs-tx';
 
   let encrypt = new window.JSEncrypt();
-
+  let iUrl = `${window.urlData.url + (window.urlData.port ? ':' + window.urlData.port : window.urlData.port)}/mvc/ethereum/personalByKeyDate`;
   export default {
     data() {
       return {
         balance: '',
+        importUrl: iUrl,
+        tokenAddress: '',
         balanceCoin: '0.00',
         transferCount: 0.001,
         keyResult: '',
@@ -294,7 +300,7 @@
       },
       getTokenBalance() {
         if (this.tokenBalance.replace(/\s/ig, '')) {
-          this.$store.dispatch('getTokenBalance', {address: this.tokenBalance, blockId: this.blockId}).then((res) => {
+          this.$store.dispatch('getTokenBalance', {address: this.tokenBalance, blockId: this.blockId, token: this.tokenAddress}).then((res) => {
             this.tokenBalanceCoin = res;
           }).catch((err) => {
             this.$message.error(err);
@@ -305,7 +311,11 @@
       },
       getBalance() {
         if (this.balance.replace(/\s/ig, '')) {
-          this.$store.dispatch('getBalance', {address: this.balance, blockId: this.blockId}).then((res) => {
+          this.$store.dispatch('getBalance', {
+            address: this.balance,
+            blockId: this.blockId,
+            token: 'ethereum'
+          }).then((res) => {
             this.balanceCoin = res;
           }).catch((err) => {
             this.$message.error(err);
@@ -332,7 +342,7 @@
           cancelButtonText: '取消'
         }).then(({value}) => {
           let that = this;
-          this.$store.dispatch('getNonceNum', {address: that.transferFrom}).then((res) => {
+          this.$store.dispatch('getNonceNum', {address: that.transferFrom, token: 'ethereum'}).then((res) => {
             this.nonceNum = res;
           }).catch((err) => {
             this.$message.error(err);
@@ -349,7 +359,7 @@
             let tx = new Tx(rawTx);
             tx.sign(privateKey);
             let serializedTx = '0x' + tx.serialize().toString('hex');
-            this.$store.dispatch('getRawTransaction', {signedMessage: serializedTx}).then((res) => {
+            this.$store.dispatch('getRawTransaction', {signedMessage: serializedTx, token: 'ethereum'}).then((res) => {
               if (!res.transactionHash) {
                 this.$message.error(res.error.message);
               } else {
@@ -378,7 +388,8 @@
             from: this.tokenTransferFrom,
             to: this.tokenTransferTo,
             pass: encrypt.encrypt(value),
-            value: this.tokenTransferCount
+            value: this.tokenTransferCount,
+            token: this.tokenAddress
           };
           this.$store.dispatch('getTokenTransaction', Tx).then((res) => {
             if (!res.transactionHash) {
@@ -396,7 +407,10 @@
           this.tableData = {};
           return;
         }
-        this.$store.dispatch('getTransactionBtHash', {transactionHash: this.orderHash}).then((res) => {
+        this.$store.dispatch('getTransactionBtHash', {
+          transactionHash: this.orderHash,
+          token: 'ethereum'
+        }).then((res) => {
           let rej = res.result;
           if (typeof rej === 'object') {
             rej.gas = window.web3.fromWei(rej.gas);
@@ -410,7 +424,7 @@
       },
       exportKeyFile() {
         let encrypted1 = encrypt.encrypt(this.privateKey);
-        this.$store.dispatch('getPersonalByKeyDate', {privateKey: encrypted1}).then((res) => {
+        this.$store.dispatch('getPersonalByKeyDate', {privateKey: encrypted1, token: 'ethereum'}).then((res) => {
           this.keyResult = res.privateKey;
           this.addResult = res.address;
         }).catch((err) => {
@@ -418,7 +432,7 @@
         });
       },
       getLocal() {
-        this.$store.dispatch('getTokenLocal', {address: this.localAddress}).then((res) => {
+        this.$store.dispatch('getTokenLocal', {address: this.localAddress, token: this.tokenAddress}).then((res) => {
           if (res.status === '1') {
             this.tokenTableData = res.result;
           }

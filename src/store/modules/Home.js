@@ -16,6 +16,17 @@ import {
   localToken} from '../../services/index';
 const Home = {
   state: {
+    url: {
+      balance: 'eth_getBalance',
+      publicKey: 'publicKey',
+      getTransaction: 'eth_sendTransaction',
+      getTransactionByHash: 'eth_getTransactionByHash',
+      importRawKey: 'personal_importRawKey',
+      sendRawTransaction: 'eth_sendRawTransaction',
+      transactionCount: 'transactionCount',
+      personalByPrivateKey: 'personalByPrivateKey',
+      txList: 'txList'
+    }
   },
 
   mutations: {
@@ -28,17 +39,18 @@ const Home = {
   },
 
   actions: {
-    getPublicKey({commit}) {
+    getPublicKey({commit, state}) {
       return new Promise((resolve, reject) => {
-        publicKey().then((res) => {
+        publicKey('/mvc/ethereum/' + state.url.publicKey).then((res) => {
           resolve(res);
         }).catch((err) => {
           reject(err);
         });
       });
     },
-    getBalance({commit}, payload) {
+    getBalance({commit, state}, payload) {
       return new Promise((resolve, reject) => {
+        payload.url = `/mvc/${payload.token}/${state.url.balance}`;
         balance(payload).then((res) => {
           resolve(res);
         }).catch((err) => {
@@ -46,8 +58,9 @@ const Home = {
         });
       });
     },
-    sendTransaction({commit}, payload) {
+    sendTransaction({commit, state}, payload) {
       return new Promise((resolve, reject) => {
+        payload.url = `/mvc/${payload.token}/${state.url.getTransaction}`;
         transaction(payload).then((res) => {
           resolve(res);
         }).catch((err) => {
@@ -55,8 +68,9 @@ const Home = {
         });
       });
     },
-    getTransactionBtHash({commit}, payload) {
+    getTransactionBtHash({commit, state}, payload) {
       return new Promise((resolve, reject) => {
+        payload.url = `/mvc/${payload.token}/${state.url.getTransactionByHash}`;
         transactionByHash(payload).then((res) => {
           resolve(res);
         }).catch((err) => {
@@ -64,8 +78,9 @@ const Home = {
         });
       });
     },
-    getKeyFile({commit}, payload) {
+    getKeyFile({commit, state}, payload) {
       return new Promise((resolve, reject) => {
+        payload.url = `/mvc/${payload.token}/${state.url.importRawKey}`;
         importKeyFile(payload).then((res) => {
           resolve(res);
         }).catch((err) => {
@@ -73,8 +88,9 @@ const Home = {
         });
       });
     },
-    getRawTransaction({commit}, payload) {
+    getRawTransaction({commit, state}, payload) {
       return new Promise((resolve, reject) => {
+        payload.url = `/mvc/${payload.token}/${state.url.sendRawTransaction}`;
         sendRawTransaction(payload).then((res) => {
           resolve(res);
         }).catch((err) => {
@@ -82,8 +98,9 @@ const Home = {
         });
       });
     },
-    getNonceNum({commit}, payload) {
+    getNonceNum({commit, state}, payload) {
       return new Promise((resolve, reject) => {
+        payload.url = `/mvc/${payload.token}/${state.url.transactionCount}`;
         getNonce(payload).then((res) => {
           resolve(res);
         }).catch((err) => {
@@ -91,8 +108,9 @@ const Home = {
         });
       });
     },
-    getPersonalByKeyDate({commit}, payload) {
+    getPersonalByKeyDate({commit, state}, payload) {
       return new Promise((resolve, reject) => {
+        payload.url = `/mvc/${payload.token}/${state.url.personalByPrivateKey}`;
         personalByKeyDate(payload).then((res) => {
           resolve(res);
         }).catch((err) => {
@@ -100,8 +118,9 @@ const Home = {
         });
       });
     },
-    getTokenBalance({commit}, payload) {
+    getTokenBalance({commit, state}, payload) {
       return new Promise((resolve, reject) => {
+        payload.url = `/mvc/${payload.token}/${state.url.balance}`;
         tokenBalance(payload).then((res) => {
           resolve(res);
         }).catch((err) => {
@@ -109,8 +128,9 @@ const Home = {
         });
       });
     },
-    getTokenTransaction({commit}, payload) {
+    getTokenTransaction({commit, state}, payload) {
       return new Promise((resolve, reject) => {
+        payload.url = `/mvc/${payload.token}/${state.url.getTransaction}`;
         tokenSendTransaction(payload).then((res) => {
           resolve(res);
         }).catch((err) => {
@@ -118,8 +138,9 @@ const Home = {
         });
       });
     },
-    getTokenLocal({commit}, payload) {
+    getTokenLocal({commit, state}, payload) {
       return new Promise((resolve, reject) => {
+        payload.url = `/mvc/${payload.token}/${state.url.txList}`;
         localToken(payload).then((res) => {
           resolve(res);
         }).catch((err) => {

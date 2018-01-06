@@ -4,10 +4,10 @@
  */
 import service from '../utils/request';
 
-export async function publicKey() {
+export async function publicKey(url) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/ethereum/publicKey',
+      url: url,
       method: 'post'
     }).then((res) => {
       resolve(res);
@@ -19,7 +19,7 @@ export async function publicKey() {
 export async function balance(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/ethereum/eth_getBalance',
+      url: data.url,
       method: 'post',
       data
     }).then((res) => {
@@ -45,7 +45,7 @@ export async function transaction(data) {
 export async function transactionByHash(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/ethereum/eth_getTransactionByHash',
+      url: data.url,
       method: 'post',
       data
     }).then((res) => {
@@ -71,7 +71,7 @@ export async function importKeyFile(data) {
 export async function sendRawTransaction(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/ethereum/eth_sendRawTransaction',
+      url: data.url,
       method: 'post',
       data
     }).then((res) => {
@@ -84,7 +84,7 @@ export async function sendRawTransaction(data) {
 export async function getNonce(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/ethereum/transactionCount',
+      url: data.url,
       method: 'post',
       data
     }).then((res) => {
@@ -97,7 +97,7 @@ export async function getNonce(data) {
 export async function personalByKeyDate(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/ethereum/personalByPrivateKey',
+      url: data.url,
       method: 'post',
       data
     }).then((res) => {
@@ -110,7 +110,7 @@ export async function personalByKeyDate(data) {
 export async function tokenBalance(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/0xc83783e5f32d1157498e6374b6ab2aec48ff4428/eth_getBalance',
+      url: data.url,
       method: 'post',
       data
     }).then((res) => {
@@ -123,7 +123,7 @@ export async function tokenBalance(data) {
 export async function tokenSendTransaction(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/0xc83783e5f32d1157498e6374b6ab2aec48ff4428/eth_sendTransaction',
+      url: data.url,
       method: 'post',
       data
     }).then((res) => {
@@ -136,7 +136,7 @@ export async function tokenSendTransaction(data) {
 export async function localToken(data) {
   return new Promise((resolve, reject) => {
     service({
-      url: '/0xc83783e5f32d1157498e6374b6ab2aec48ff4428/txList',
+      url: data.url,
       method: 'post',
       data
     }).then((res) => {
